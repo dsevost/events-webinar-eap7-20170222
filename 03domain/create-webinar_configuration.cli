@@ -1,0 +1,20 @@
+connect 127.1.0.10
+batch
+/profile=default/subsystem=undertow/configuration=handler/reverse-proxy=webinar-proxy:add()
+/profile=default/subsystem=undertow/configuration=handler/reverse-proxy=webinar-console:add()
+/server-group=proxy-server-group:add(profile=default,socket-binding-group=standard-sockets)
+/host=master/server-config=proxy01:add(group=proxy-server-group,socket-binding-port-offset=0,auto-start=true)
+/socket-binding-group=standard-sockets/remote-destination-outbound-socket-binding=remote-master/:add(host=127.1.0.10, port=9990)
+/socket-binding-group=standard-sockets/remote-destination-outbound-socket-binding=remote-host1/:add(host=127.1.0.11, port=11009)
+/socket-binding-group=standard-sockets/remote-destination-outbound-socket-binding=remote-host2/:add(host=127.1.0.12, port=12009)
+/socket-binding-group=standard-sockets/remote-destination-outbound-socket-binding=remote-host3/:add(host=127.1.0.13, port=13009)
+/profile=default/subsystem=undertow/configuration=handler/reverse-proxy=webinar-console/host=master:add(outbound-socket-binding=remote-master, scheme=http, instance-id=console-route, path=/console)
+/profile=default/subsystem=undertow/server=proxy01/host=default-host/location=\/console:add(handler=webinar-console)
+run-batch
+
+batch
+/server-group=example-server-group:add(profile=full,socket-binding-group=full-sockets)
+/host=node1/server-config=ex01:add(group=example-server-group,socket-binding-port-offset=3000,auto-start=false)
+/host=node2/server-config=ex02:add(group=example-server-group,socket-binding-port-offset=4000,auto-start=false)
+/host=node3/server-config=ex03:add(group=example-server-group,socket-binding-port-offset=5000,auto-start=false)
+run-batch

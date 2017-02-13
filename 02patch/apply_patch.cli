@@ -1,0 +1,4 @@
+embed-server --timeout=30 --admin-only --std-out=echo
+patch apply --override-all ~/download/jboss-eap-7.0.4-patch.zip
+stop-embedded-server
+quit

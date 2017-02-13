@@ -1,0 +1,10 @@
+connect 127.1.0.10
+:stop-servers()
+/host=node1/server-config=server-one:remove()
+/host=node1/server-config=server-two:remove()
+/host=node2/server-config=server-one:remove()
+/host=node2/server-config=server-two:remove()
+/host=node3/server-config=server-two:remove()
+/host=node3/server-config=server-one:remove()
+/server-group=main-server-group:remove()
+/server-group=other-server-group:remove()
