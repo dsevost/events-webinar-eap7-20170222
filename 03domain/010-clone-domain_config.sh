@@ -2,9 +2,11 @@
 
 EAP_TYPE=${EAP_TYPE:-"domain"}
 DOMAIN_NAME=${DOMAIN_NAME:-"webinar-eap7"}
-CONTROLLER_HOST=${CONTROLLER_HOST:-127.1.0.10}
+#CONTROLLER_HOST=${CONTROLLER_HOST:-127.1.0.10}
+EXTIP=$(ip ro get 8.8.8.8 |awk '/8.8.8.8.*via.*src/ { print $7; }')
+CONTROLLER_HOST=${CONTROLLER_HOST:-$EXTIP}
 
-dir1=$(realpath -Pe $(dirname $0))
+dir1=$(realpath $(dirname $0))
 
 set -x
 
@@ -30,6 +32,12 @@ function start_host() {
     local slave_host
 
     case $type in
+	"")
+	    config="host.xml"
+	    ;;
+    esac
+
+    case $type in
 	master|controller)
 	    bind_address=0.0.0.0
 	    ;;
@@ -53,6 +61,7 @@ function start_host() {
 }
 
 CONF="controller:$CONTROLLER_HOST:master node1:127.1.0.11:slave node2:127.1.0.12:slave node3:127.1.0.13:slave"
+#CONF="controller:$CONTROLLER_HOST:master"
 
 tmux new -s webinar -d || true
 
@@ -61,11 +70,5 @@ for c in $CONF ; do
     a=$(echo $c |awk -F: '{ print $2; }')
     t=$(echo $c |awk -F: '{ print $3; }')
     create_host $h
-    start_host $h ${t} $a
+    start_host "$h" "${t}" "$a"
 done
-
-sleep 10
-~/app/eap-7/bin/jboss-cli.sh --file=${dir1}/remove-default_configuration.cli
-
-sleep 10
-~/app/eap-7/bin/jboss-cli.sh --file=${dir1}/create-webinar_configuration.cli

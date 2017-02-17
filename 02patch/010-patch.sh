@@ -1,6 +1,6 @@
 #!/bin/bash
 
-dir1=$(realpath -Pe $(dirname $0))
+dir1=$(realpath $(dirname $0))
 
 set -x
 

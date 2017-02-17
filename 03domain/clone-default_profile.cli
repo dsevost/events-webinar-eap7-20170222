@@ -1,0 +1,3 @@
+#connect 127.1.0.10
+
+/profile=default:clone(to-profile=proxy)
