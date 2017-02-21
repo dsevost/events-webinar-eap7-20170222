@@ -8,3 +8,5 @@ dir1=$(realpath $(dirname $0))
 set -ex
 
 ~/jboss-forge/bin/forge -e "run ${dir1}/forge-wildfly_swarm.fsh"
+
+mvn clean package helloworld

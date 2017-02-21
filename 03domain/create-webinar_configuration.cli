@@ -5,4 +5,4 @@
 /host=node2/server-config=ex02:add(group=example-server-group,auto-start=false,socket-binding-port-offset=4000)
 /host=node3/server-config=ex03:add(group=example-server-group,auto-start=false,socket-binding-port-offset=5000)
 
-/server-group=example-server-group:start
+/server-group=example-server-group:start-servers
