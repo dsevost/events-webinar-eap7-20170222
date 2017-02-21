@@ -3,7 +3,7 @@
 dir1=$(realpath $(dirname $0))
 ANSWER_FILE=eap-7-install.xml
 
-for a in {0..4} ; do ip a add 127.1.0.1$a/24 dev lo ; done
+#for a in {0..4} ; do sudo ip a add 127.1.0.1$a/24 dev lo ; done
 
 set -x
 

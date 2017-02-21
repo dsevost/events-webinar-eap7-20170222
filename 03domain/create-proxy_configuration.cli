@@ -1,6 +1,5 @@
 #connect 127.1.0.10
 
-/socket-binding-group=standard-sockets/remote-destination-outbound-socket-binding=remote-master-console:add(host=127.1.0.10, port=9990)
 /socket-binding-group=standard-sockets/remote-destination-outbound-socket-binding=remote-host1:add(host=127.1.0.11, port=11009)
 /socket-binding-group=standard-sockets/remote-destination-outbound-socket-binding=remote-host2:add(host=127.1.0.12, port=12009)
 /socket-binding-group=standard-sockets/remote-destination-outbound-socket-binding=remote-host3:add(host=127.1.0.13, port=13009)
@@ -12,20 +11,5 @@
 /host=master/server-config=proxy01:add(group=proxy-server-group,socket-binding-port-offset=0,auto-start=true)
 
 /profile=proxy/subsystem=undertow/server=default-server/http-listener=default:write-attribute(name=enable-http2,value=true)
-
-#/profile=proxy/subsystem=undertow/configuration=handler/reverse-proxy=webinar-web-console:add()
-##/profile=proxy/subsystem=undertow/configuration=handler/reverse-proxy=webinar-web-console/host=default-host:add( \
-##  outbound-socket-binding=remote-master-console, scheme=http, instance-id=console-route, path=/)
-#/profile=proxy/subsystem=undertow/configuration=handler/reverse-proxy=webinar-web-console/host=default-host:add( \
-#  outbound-socket-binding=remote-master-console, scheme=http, instance-id=console-route, path=/console)
-#/profile=proxy/subsystem=undertow/configuration=handler/reverse-proxy=webinar-mngt-console:add()
-#/profile=proxy/subsystem=undertow/configuration=handler/reverse-proxy=webinar-mngt-console/host=default-host:add( \
-#  outbound-socket-binding=remote-master-console, scheme=http, instance-id=management-route, path=/management)
-
-##/profile=proxy/subsystem=undertow/server=default-server/host=default-host/location=\/:add(handler=webinar-web-console)
-#/profile=proxy/subsystem=undertow/server=default-server/host=default-host/location=\/console:add(handler=webinar-web-console)
-#/profile=proxy/subsystem=undertow/server=default-server/host=default-host/location=\/management:add(handler=webinar-mngt-console)
-
-##/host=master/core-service=management/management-interface=http-interface:write-attribute(name=allowed-origins,value=substituteAll("http://127.1.0.10:9990"\,"http://127.0.0.1:8080"\,"http://localhost:8080")
 
 /host=master/server-config=proxy01:start
