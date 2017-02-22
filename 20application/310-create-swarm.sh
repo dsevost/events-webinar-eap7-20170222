@@ -9,4 +9,4 @@ set -ex
 
 ~/jboss-forge/bin/forge -e "run ${dir1}/forge-wildfly_swarm.fsh"
 
-mvn clean package helloworld
+mvn -f ${dir1}/helloworld clean package

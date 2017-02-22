@@ -15,14 +15,14 @@ mvn clean package -f ${dir1}/helloworld
 
 ~/app/eap-7/bin/jboss-cli.sh --connect --controller=$CONTROLLER_HOST \
     --commands="\
-    /profile=proxy/subsystem=undertow/configuration=handler/reverse-proxy=webinar-proxy/host=helloworld-host1:add( \
+    /profile=proxy/subsystem=undertow/configuration=handler/reverse-proxy=helloworld-proxy/host=helloworld-host1:add( \
 	outbound-socket-binding=remote-host1, scheme=ajp, instance-id=helloworld-route, path=/helloworld), \
 
-    /profile=proxy/subsystem=undertow/configuration=handler/reverse-proxy=webinar-proxy/host=helloworld-host2:add( \
+    /profile=proxy/subsystem=undertow/configuration=handler/reverse-proxy=helloworld-proxy/host=helloworld-host2:add( \
 	outbound-socket-binding=remote-host2, scheme=ajp, instance-id=helloworld-route, path=/helloworld), \
 
-    /profile=proxy/subsystem=undertow/configuration=handler/reverse-proxy=webinar-proxy/host=helloworld-host3:add( \
+    /profile=proxy/subsystem=undertow/configuration=handler/reverse-proxy=helloworld-proxy/host=helloworld-host3:add( \
 	outbound-socket-binding=remote-host3, scheme=ajp, instance-id=helloworld-route, path=/helloworld), \
 
-    /profile=proxy/subsystem=undertow/server=default-server/host=default-host/location=\/helloworld:add(handler=webinar-proxy) \
+    /profile=proxy/subsystem=undertow/server=default-server/host=default-host/location=\/helloworld:add(handler=helloworld-proxy) \
     "

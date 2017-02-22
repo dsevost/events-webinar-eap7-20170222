@@ -5,6 +5,7 @@
 /socket-binding-group=standard-sockets/remote-destination-outbound-socket-binding=remote-host3:add(host=127.1.0.13, port=13009)
 
 /profile=proxy/subsystem=undertow/configuration=handler/reverse-proxy=webinar-proxy:add()
+/profile=proxy/subsystem=undertow/configuration=handler/reverse-proxy=helloworld-proxy:add()
 
 /interface=external:add(any-address=true)
 /server-group=proxy-server-group:add(profile=proxy,socket-binding-group=standard-sockets,socket-binding-default-interface=external)
