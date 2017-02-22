@@ -5,6 +5,8 @@ CONTROLLER_HOST=${CONTROLLER_HOST:-$EXTIP}
 
 dir1=$(realpath $(dirname $0))
 
+pushd ${dir1}
+
 set -x
 
 ~/jboss-forge/bin/forge -e "run ${dir1}/forge-helloworld.fsh"
